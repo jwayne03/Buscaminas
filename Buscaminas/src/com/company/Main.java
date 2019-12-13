@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+
         Scanner read = new Scanner(System.in);
 
         int filaUsuario;
@@ -13,8 +14,17 @@ public class Main {
         int dificultad;
         int filas;
         int columnas;
-        String tipo;
         int contadorMinas = 0;
+        String tipo;
+
+        System.out.println("**************************************************************");
+        System.out.println("Bienvenido al juego Buscaminas");
+        System.out.println("-Primero debe elegir la dificultad que desee a partir del 2.");
+        System.out.println("-Elegirá primero la fila y después la columna");
+        System.out.println("-Elegirá TIPO, si crees que hay una mina:");
+        System.out.println("Pulsa ( x ) y si estás seguro que no habrá una mina, pulsa ( o )");
+        System.out.println("Buena suerte!");
+        System.out.println("**************************************************************");
 
         System.out.print("Nivel de dificultad: "); //Hacemos que el usuario introduzca el nivel de dificultad
         dificultad = read.nextInt();
@@ -29,7 +39,6 @@ public class Main {
             }
             System.out.println();
         }
-
 
         int[][] matrizMinas = new int[dificultad][dificultad]; //creamos una variable que será para generar minas
 
@@ -124,7 +133,9 @@ public class Main {
             System.out.print("Tipo: ");
             tipo = read.next(); //el usuario introduce un tipo: "o" , "x".
 
-            //Switch para el tipo
+            System.out.println();
+
+            //Switch para el tipo si es (x) o (o)
             switch (tipo) {
                 case "x": //preguntar al usuario si hay una mina o no
                     if (matrizMinas[filaUsuario - 1][columnaUsuario - 1] == 9) {
@@ -136,8 +147,8 @@ public class Main {
                     break;
                 case "o": //preguntar al usuario si esta seguro que no hay nada
                     if (matrizMinas[filaUsuario - 1][columnaUsuario - 1] >= 9) { //si "o" es igual o mayor que 9 = "Game over"
-                        System.err.println("Game Over");
                         matrizGenerada[filaUsuario - 1][columnaUsuario - 1] = " x ";
+                        System.err.println(" Game Over");
                         gameOver++;
                     } else if (matrizMinas[filaUsuario - 1][columnaUsuario - 1] < 9) {
                         matrizGenerada[filaUsuario - 1][columnaUsuario - 1] = " " + String.valueOf(matrizMinas[filaUsuario - 1][columnaUsuario - 1] + " ");
