@@ -8,164 +8,164 @@ public class Main {
 
         Scanner read = new Scanner(System.in);
 
-        int filaUsuario;
-        int columnaUsuario;
+        int rowUser;
+        int columnUser;
         int gameOver = 0;
-        int dificultad;
-        int filas;
-        int columnas;
-        int contadorMinas = 0;
-        String tipo;
+        int dificulty;
+        int rows;
+        int columns;
+        int mineCounter = 0;
+        String type;
 
         System.out.println("**************************************************************");
-        System.out.println("Bienvenido al juego Buscaminas");
-        System.out.println("-Primero debe elegir la dificultad que desee a partir del 2.");
-        System.out.println("-Elegirá primero la fila y después la columna");
-        System.out.println("-Elegirá TIPO, si crees que hay una mina:");
-        System.out.println("Pulsa ( x ) y si estás seguro que no habrá una mina, pulsa ( o )");
-        System.out.println("Buena suerte!");
+        System.out.println("Welcome to the Minesweeper game");
+        System.out.println("-First you must choose the difficulty you want from 2.");
+        System.out.println("-You will choose the row first and then the column");
+        System.out.println("-Choose TYPE, if you think there is a mine:");
+        System.out.println("Press (x) and if you're sure there won't be a mine, press (o)");
+        System.out.println("Good luck!");
         System.out.println("**************************************************************");
 
-        System.out.print("Nivel de dificultad: "); //Hacemos que el usuario introduzca el nivel de dificultad
-        dificultad = read.nextInt();
+        System.out.print("Nivel de dificultad: "); // We make the user enter the difficulty level
+        dificulty = read.nextInt();
         System.out.println();
 
-        String[][] matrizGenerada = new String[dificultad][dificultad]; //creamos una variable donde se generará la matriz
+        String[][] arrayGeneretor = new String[dificulty][dificulty]; // create a variable where the matrix will be generated
 
-        for (int i = 0; i < matrizGenerada.length; i++) { //aqui imprime la matriz
-            for (int j = 0; j < matrizGenerada[i].length; j++) {
-                matrizGenerada[i][j] = " - ";
-                System.out.print(matrizGenerada[i][j]);
+
+        for (int i = 0; i < arrayGeneretor.length; i++) { //print the matrix here
+            for (int j = 0; j < arrayGeneretor[i].length; j++) {
+                arrayGeneretor[i][j] = " - ";
+                System.out.print(arrayGeneretor[i][j]);
             }
             System.out.println();
         }
 
-        int[][] matrizMinas = new int[dificultad][dificultad]; //creamos una variable que será para generar minas
+        int[][] arrayOfMines = new int[dificulty][dificulty]; // create a variable that will be to generate mines
 
-        for (int i = 0; i < dificultad; i++) { //Este bucle se usará para generar minas de forma aleatorias
-            filas = (int) (Math.random() * dificultad);
-            columnas = (int) (Math.random() * dificultad);
-            if (matrizMinas[filas][columnas] != 9) {
-                matrizMinas[filas][columnas] = 9;
+        for (int i = 0; i < dificulty; i++) { // This loop will be used to generate random mines
+            rows = (int) (Math.random() * dificulty);
+            columns = (int) (Math.random() * dificulty);
+            if (arrayOfMines[rows][columns] != 9) {
+                arrayOfMines[rows][columns] = 9;
             } else {
                 i--;
             }
         }
 
-        //aqui comprobamos si alrededor hay minas o no
-        for (int i = 0; i < dificultad; i++) {
-            for (int j = 0; j < dificultad; j++) {
-                if (matrizMinas[i][j] != 9) {
-
-                    if (i != dificultad - 1) { //comprobamos todas las filas menos la ultima
-                        if (j - 1 >= 0) { //comprobamos abajo a la izquierda
-                            if (matrizMinas[i + 1][j - 1] == 9) {
-                                matrizMinas[i][j]++;
+        // here we check if there are mines around or not
+        for (int i = 0; i < dificulty; i++) {
+            for (int j = 0; j < dificulty; j++) {
+                if (arrayOfMines[i][j] != 9) {
+                    if (i != dificulty - 1) { // we check all rows except the last one
+                        if (j - 1 >= 0) { // we check down on the left
+                            if (arrayOfMines[i + 1][j - 1] == 9) {
+                                arrayOfMines[i][j]++;
                             }
                         }
-                        if (j + 1 <= dificultad - 1) { //comprobamos abajo a la derecha
-                            if (matrizMinas[i + 1][j + 1] == 9) {
-                                matrizMinas[i][j]++;
+                        if (j + 1 <= dificulty - 1) { // we check bottom right
+                            if (arrayOfMines[i + 1][j + 1] == 9) {
+                                arrayOfMines[i][j]++;
                             }
                         }
-                        if (matrizMinas[i + 1][j] == 9) { //comprobar abajo
-                            matrizMinas[i][j]++;
+                        if (arrayOfMines[i + 1][j] == 9) { // check below
+                            arrayOfMines[i][j]++;
                         }
                     }
 
-                    if (i != 0) { //comprobamos todas las filas menos la primera
-                        if (j - 1 >= 0) { //comprabamos arriba a la izquierda
-                            if (matrizMinas[i - 1][j - 1] == 9) {
-                                matrizMinas[i][j]++;
+                    if (i != 0) { // we check all rows except the first
+                        if (j - 1 >= 0) {// we bought top left
+                            if (arrayOfMines[i - 1][j - 1] == 9) {
+                                arrayOfMines[i][j]++;
                             }
                         }
-                        if (j + 1 <= dificultad - 1) { //comprobamos arriba a la derecha
-                            if (matrizMinas[i - 1][j + 1] == 9) {
-                                matrizMinas[i][j]++;
+                        if (j + 1 <= dificulty - 1) {// we check up on the right
+                            if (arrayOfMines[i - 1][j + 1] == 9) {
+                                arrayOfMines[i][j]++;
                             }
                         }
-                        if (matrizMinas[i - 1][j] == 9) { //comprobar arriba
-                            matrizMinas[i][j]++;
+                        if (arrayOfMines[i - 1][j] == 9) { // check above
+                            arrayOfMines[i][j]++;
                         }
                     }
 
                     if (j - 1 >= 0) {
-                        if (matrizMinas[i][j - 1] == 9) { //comprobar izquierda
-                            matrizMinas[i][j]++;
+                        if (arrayOfMines[i][j - 1] == 9) { // check left
+                            arrayOfMines[i][j]++;
                         }
                     }
 
-                    if (j + 1 <= dificultad - 1) {
-                        if (matrizMinas[i][j + 1] == 9) { //comprobar derecha
-                            matrizMinas[i][j]++;
+                    if (j + 1 <= dificulty - 1) {
+                        if (arrayOfMines[i][j + 1] == 9) { // check right
+                            arrayOfMines[i][j]++;
                         }
                     }
                 }
             }
         }
 
-        //En este bucle sirve para iniciar el juego
+        // In this loop serves to start the game
         while (gameOver < 1) {
             System.out.print("Introduzca una fila: ");
-            filaUsuario = read.nextInt(); //El usuario introduce una fila
+            rowUser = read.nextInt(); // The user enters a row
 
-            for (int i = 0; i < 1; ) { //en este bucle es un control de errores por si el usuario introduce de forma incorrecta el valor
-                if (filaUsuario > dificultad || filaUsuario < 0) {
+            for (int i = 0; i < 1; ) { // in this loop is an error control if the user incorrectly enters the value
+                if (rowUser > dificulty || rowUser < 0) {
                     System.out.print("Introduzca una fila: ");
-                    filaUsuario = read.nextInt();
+                    rowUser = read.nextInt();
                 } else {
                     i++;
                 }
             }
 
             System.out.print("Introduzca una columna: ");
-            columnaUsuario = read.nextInt(); //El usuario introduce una columna
+            columnUser = read.nextInt(); // The user enters a column
 
-            for (int i = 0; i < 1; ) { //en este bucle es un control de errores por si el usuario introduce de forma incorrecta el valor
-                if (columnaUsuario > dificultad || columnaUsuario < 0) {
+            for (int i = 0; i < 1; ) { // in this loop is an error control if the user incorrectly enters the value
+                if (columnUser > dificulty || columnUser < 0) {
                     System.out.print("Introduzca una columna: ");
-                    columnaUsuario = read.nextInt();
+                    columnUser = read.nextInt();
                 } else {
                     i++;
                 }
             }
 
             System.out.print("Tipo: ");
-            tipo = read.next(); //el usuario introduce un tipo: "o" , "x".
+            type = read.next(); // the user enters a type: "o", "x".
 
             System.out.println();
 
-            //Switch para el tipo si es (x) o (o)
-            switch (tipo) {
-                case "x": //preguntar al usuario si hay una mina o no
-                    if (matrizMinas[filaUsuario - 1][columnaUsuario - 1] == 9) {
-                        matrizGenerada[filaUsuario - 1][columnaUsuario - 1] = " ? ";
-                        contadorMinas++;
+            // Switch for type if it is (x) or (o)
+            switch (type) {
+                case "x": // ask the user if there is a mine or not
+                    if (arrayOfMines[rowUser - 1][columnUser - 1] == 9) {
+                        arrayGeneretor[rowUser - 1][columnUser - 1] = " ? ";
+                        mineCounter++;
                     } else {
-                        matrizGenerada[filaUsuario - 1][columnaUsuario - 1] = " ? ";
+                        arrayGeneretor[rowUser - 1][columnUser - 1] = " ? ";
                     }
                     break;
-                case "o": //preguntar al usuario si esta seguro que no hay nada
-                    if (matrizMinas[filaUsuario - 1][columnaUsuario - 1] >= 9) { //si "o" es igual o mayor que 9 = "Game over"
-                        matrizGenerada[filaUsuario - 1][columnaUsuario - 1] = " x ";
+                case "o": // ask the user if they are sure there is nothing
+                    if (arrayOfMines[rowUser - 1][columnUser - 1] >= 9) { // if " o " is equal to or greater than 9 = "Game over"
+                        arrayGeneretor[rowUser - 1][columnUser - 1] = " x ";
                         System.err.println(" Game Over");
                         gameOver++;
-                    } else if (matrizMinas[filaUsuario - 1][columnaUsuario - 1] < 9) {
-                        matrizGenerada[filaUsuario - 1][columnaUsuario - 1] = " " + String.valueOf(matrizMinas[filaUsuario - 1][columnaUsuario - 1] + " ");
+                    } else if (arrayOfMines[rowUser - 1][columnUser - 1] < 9) {
+                        arrayGeneretor[rowUser - 1][columnUser - 1] = " " + (arrayOfMines[rowUser - 1][columnUser - 1] + " ");
                     }
                     break;
             }
 
-            //aqui indicamos que si el contador es igual que la dificultad, eso significa que ya no hay mas minas y el juego ha terminado
-            if (contadorMinas == dificultad) {
+            // here we indicate that if the counter is the same as the difficulty, that means that there are no more mines and the game is over
+            if (mineCounter == dificulty) {
                 System.err.println("Fin de la partida");
                 gameOver++;
             }
 
-            //Imprimir el tablero otra vez
-            for (int i = 0; i < matrizGenerada.length; i++) {
-                for (int j = 0; j < matrizGenerada[i].length; j++) {
-                    System.out.print(matrizGenerada[i][j]);
+            // Print the board again
+            for (String[] strings : arrayGeneretor) {
+                for (String string : strings) {
+                    System.out.print(string);
                 }
                 System.out.println();
             }
