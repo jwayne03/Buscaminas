@@ -32,7 +32,6 @@ public class Main {
 
         String[][] arrayGeneretor = new String[dificulty][dificulty]; // create a variable where the matrix will be generated
 
-
         for (int i = 0; i < arrayGeneretor.length; i++) { //print the matrix here
             for (int j = 0; j < arrayGeneretor[i].length; j++) {
                 arrayGeneretor[i][j] = " - ";
